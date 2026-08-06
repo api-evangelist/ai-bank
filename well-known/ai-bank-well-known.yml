@@ -1,0 +1,63 @@
+generated: '2026-08-06'
+method: probed
+source: live probes of https://www.aibank.com and https://www.citicaibank.cn
+host: https://www.aibank.com
+
+# NOTHING WAS FOUND. Every path below answered HTTP 200, but the origin serves a
+# catch-all SOFT 404: the body is byte-identical to the body returned for a control
+# path that cannot exist. The 200s are not evidence of a document.
+#
+# Control diff (the test that disproves them):
+#   https://www.aibank.com/zzz-control-does-not-exist-9182.json  -> 200, md5 e9a0b3534fb7190ddd9b79d64649f08b
+#   https://www.aibank.com/.well-known/agent-card.json           -> 200, md5 e9a0b3534fb7190ddd9b79d64649f08b
+#   https://www.citicaibank.cn/zzz-control-9182                  -> 200, md5 e9a0b3534fb7190ddd9b79d64649f08b
+# All three return the same Chinese-language marketing shell (<title>百信银行</title>).
+#
+# Therefore: documents[] is empty and NO `WellKnown`, `SecurityTxt`, `APICatalog` or
+# `AgentCard` pointer is wired into apis.yml. A future round must re-run the control
+# diff before crediting any 200 from this origin.
+
+soft_404: true
+soft_404_control:
+  url: https://www.aibank.com/zzz-control-does-not-exist-9182.json
+  http_status: 200
+  body_md5: e9a0b3534fb7190ddd9b79d64649f08b
+  content_type: text/html; charset=utf-8
+
+documents: []
+
+probed:
+- path: /.well-known/security.txt
+  status: 200
+  real: false
+  note: soft-404 shell
+- path: /.well-known/openid-configuration
+  status: 200
+  real: false
+  note: soft-404 shell
+- path: /.well-known/oauth-authorization-server
+  status: 200
+  real: false
+  note: soft-404 shell
+- path: /.well-known/api-catalog
+  status: 200
+  real: false
+  note: soft-404 shell
+- path: /.well-known/ai-plugin.json
+  status: 200
+  real: false
+  note: soft-404 shell
+- path: /.well-known/agent-card.json
+  status: 200
+  real: false
+  note: soft-404 shell; body md5 identical to control path
+- path: /.well-known/agent.json
+  status: 200
+  real: false
+  note: soft-404 shell; body md5 identical to control path
+
+hosts_probed:
+- https://www.aibank.com
+- https://www.citicaibank.cn
+- https://open.aibank.com          # DNS A 119.253.84.40, TCP connect timeout from the public internet
+- https://open.citicaibank.cn      # DNS A 180.76.200.49, TCP connect timeout from the public internet

@@ -1,7 +1,16 @@
 aid: ai-bank
 name: AI Bank
-description: 'AI Bank is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 'AI Bank (aiBank, 百信银行 / 中信百信银行股份有限公司 — CITIC aiBank Co., Ltd.) is a
+  Beijing-based digital direct bank, launched in November 2017 as China''s first independent
+  legal-person direct bank, a joint venture founded by China CITIC Bank and Baidu. It operates
+  with no physical branches, serving retail customers — particularly younger consumers — and
+  small and micro enterprises entirely through digital channels. Its own site describes the
+  business lines as wealth management (财富管理), consumer finance (消费金融), industrial digital
+  finance (产业数字金融), bills and notes (票据业务) and ecosystem finance (生态金融). The bank is
+  positioned as an open-banking operator that embeds banking capability into partner platforms,
+  but it publishes no public developer portal, API reference or machine-readable specification;
+  its integration surface is reached through partner business agreements rather than public
+  self-service onboarding.'
 url: https://raw.githubusercontent.com/api-evangelist/ai-bank/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
@@ -12,6 +21,14 @@ created: '2026-08-06'
 modified: '2026-08-06'
 tags:
 - Company
+- Banking
+- Digital Banking
+- Financial Services
+- Consumer Finance
+- SME Lending
+- Wealth Management
+- FinTech
+- China
 apis: []
 maintainers:
 - FN: Kin Lane
@@ -20,4 +37,47 @@ maintainers:
   email: info@apis.io
 common:
 - type: Website
-  url: https://www.hiive.com/securities/ai-bank-stock
+  url: https://www.aibank.com/
+- type: DomainSecurity
+  url: security/ai-bank-domain-security.yml
+- type: LLMsTxt
+  url: llms/ai-bank-llms.txt
+x-identity:
+  legal_name: 中信百信银行股份有限公司
+  legal_name_en: CITIC aiBank Co., Ltd.
+  brand: 百信银行 / aiBank
+  headquarters: Beijing, China
+  founded: '2017-11'
+  domains:
+  - aibank.com
+  - citicaibank.cn
+  secondary_market_listing: https://www.hiive.com/securities/ai-bank-stock
+  evidence:
+  - url: https://www.aibank.com/
+    http_status: 200
+    note: 'page title 中信百信银行门户网站; meta description 中信百信银行是中信银行控股的数字普惠银行'
+  - url: https://www.hiive.com/securities/ai-bank-stock
+    http_status: 200
+    note: secondary-market listing that seeded this profile; Series A November 2020
+x-enrichment:
+  date: '2026-08-06'
+  status: minimal
+  artifacts_added: 3
+  pass: local-v1
+x-coverage:
+  state: gated
+  reason: partner-login
+  detail: >-
+    AI Bank's open-banking host open.aibank.com resolves in DNS (119.253.84.40) but never
+    completes a TCP connection from the public internet, and the corporate site at
+    www.aibank.com carries no developer, 开放平台 or API section anywhere in its navigation —
+    the bank's embedded-finance integrations are reached through partner business agreements,
+    so no contract or reference is publicly readable.
+  evidence:
+  - url: https://www.aibank.com/
+    status: 200
+  - url: https://open.aibank.com/
+    status: 0
+  - url: https://www.aibank.com/.well-known/agent-card.json
+    status: 200
+  checked: '2026-08-06'

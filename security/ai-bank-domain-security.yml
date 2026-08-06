@@ -1,0 +1,37 @@
+generated: '2026-08-06'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml hosts
+
+# NOTE ON THE HTTP RESULT. www.aibank.com served HTTPS 200 to this run earlier in the
+# same pass (the homepage HTML was retrieved over TLS and parsed). Partway through
+# contract discovery the origin began refusing our source IP — every subsequent request
+# to www.aibank.com, www.citicaibank.cn and their sub-paths returned curl exit 28
+# (connection timed out) rather than a status code. The automated re-probe therefore
+# recorded `https: false`, which is an artifact of that block, not a property of the
+# host. It is corrected below to what was actually observed, with the unobserved TLS
+# fields left null rather than guessed.
+hosts:
+- host: www.aibank.com
+  https: true
+  https_observed: '2026-08-06'
+  tls_version: null
+  cert_expires: null
+  hsts: null
+  note: >-
+    HTTPS 200 confirmed by direct fetch; TLS version, certificate expiry and HSTS were
+    not captured before the origin began timing out this source IP. Re-probe next round.
+domains:
+- domain: aibank.com
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: false
+- domain: citicaibank.cn
+  note: >-
+    Alternate portal domain (www.citicaibank.cn) discovered from links on the aibank.com
+    homepage; not separately DNS-profiled this round.
+findings:
+- No DMARC record on aibank.com — a licensed bank's primary domain with SPF but no DMARC
+  policy, so there is no published handling instruction for spoofed mail.
+- No CAA records — any public CA may issue for aibank.com.
+- No DNSSEC.
