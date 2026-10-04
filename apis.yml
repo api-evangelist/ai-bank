@@ -46,7 +46,7 @@ tags:
 - Company
 - Banking
 - Digital Banking
-- Financial-Services
+- Financial Services
 - Consumer Finance
 - SME Lending
 - Wealth Management
@@ -62,6 +62,7 @@ tags_raw:
 - Wealth Management
 - FinTech
 - China
+- Financial-Services
 apis: []
 maintainers:
 - FN: Kin Lane
