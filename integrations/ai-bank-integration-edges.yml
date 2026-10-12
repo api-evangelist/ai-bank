@@ -1,0 +1,16 @@
+generated: '2026-10-12'
+method: none
+source:
+- https://zapier.com/apps/ai-bank/integrations
+- https://n8n.io/integrations/ai-bank/
+- https://composio.dev/toolkits/ai-bank
+- https://monid.ai/tools/ai-bank
+checked:
+- https://composio.dev/toolkits/ai-bank
+- https://monid.ai/tools/ai-bank
+- https://n8n.io/integrations/ai-bank/
+- https://zapier.com/apps/ai-bank/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []
